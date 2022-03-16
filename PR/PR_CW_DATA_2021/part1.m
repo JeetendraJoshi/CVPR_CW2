@@ -194,9 +194,9 @@ for i = 1:length(data)
 load(data(i).name);
 data(i).name
 
-PVT(i, 1) = F0pdc(1,60);
-PVT(i,2) = F0pac(1,60);
-PVT(i,3) = F0tdc(1,60);
+PVT(i,1) = F0pdc(1,t);
+PVT(i,2) = F0pac(2,t);
+PVT(i,3) = F0tdc(1,t);
 
 end
 
@@ -206,7 +206,7 @@ ElectrodesData = zeros(60, 19);
 
 for i = 1:length(data)
     load(data(i).name);
-    ElectrodesData(i, :) = F0Electrodes(:, 60);
+    ElectrodesData(i, :) = F0Electrodes(:, t);
 end
 
 save('F0Electrodes.mat',"ElectrodesData");
