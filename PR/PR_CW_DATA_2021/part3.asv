@@ -1,4 +1,8 @@
 close all
+
+
+
+
 load("F0_PVT.mat")
 
 
@@ -8,26 +12,6 @@ normalisedBothClasses = normalize(bothClasses);
 
 normalisedBF = normalisedBothClasses(1:10, 1:3);
 normalisedCS = normalisedBothClasses(11:20, 1:3);
-
-
-
-figure;
-scatter(normalisedCS(1:10, 1),normalisedCS(1:10, 2), "red"); % Pressure vs Volume
-hold on
-scatter(normalisedBF(1:10, 1),normalisedBF(1:10, 2), "blue");
-
-figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 3), "red"); % Volume vs Temperature
-hold on
-scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 3), "blue");
-
-figure;
-scatter(normalisedCS(1:10, 1),normalisedCS(1:10, 3), "red"); % Pressure vs Temperature
-hold on
-scatter(normalisedBF(1:10, 1),normalisedBF(1:10, 3), "blue");
-
-
-close all
 
 blackFoamMean = mean(normalisedBF);
 carSpongeMean = mean(normalisedCS);
@@ -67,9 +51,9 @@ scatter_VT_BC = transpose(BF_VT_Means - CS_VT_Means) * (BF_VT_Means - CS_VT_Mean
 scatter_PT_BC = transpose(BF_PT_Means - CS_PT_Means) * (BF_PT_Means - CS_PT_Means);
 
 
-[PVeigenVectors, PVeigenValues] = eigs(inv(totalScatterPV_WC)*scatter_PV_BC, 2);
-[VTeigenVectors, VTeigenValues] = eigs(inv(totalScatterVT_WC)*scatter_VT_BC, 2);
-[PTeigenVectors, PTeigenValues] = eigs(inv(totalScatterPT_WC)*scatter_PT_BC, 2);
+[PVeigenVectors, PVeigenValues] = eigs(totalScatterPV_WC\scatter_PV_BC, 2);
+[VTeigenVectors, VTeigenValues] = eigs(totalScatterVT_WC\scatter_VT_BC, 2);
+[PTeigenVectors, PTeigenValues] = eigs(totalScatterPT_WC\scatter_PT_BC, 2);
 
 LDPV = PVeigenVectors(:, 1);
 LDVT = VTeigenVectors(:, 1);
@@ -77,11 +61,11 @@ LDPT = PTeigenVectors(:, 1);
 
 
 figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 1), "red"); % Pressure vs Vibration
+scatter(normalisedCS(:, 2),normalisedCS(:, 1), "red"); % Pressure vs Vibration
 hold on
-scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 1), "blue");
+scatter(normalisedBF(:, 2),normalisedBF(:, 1), "blue");
 hold on
-quiver(0,0, LDPV(1), LDPV(2))
+quiver(0,0, LDPV(1, 1), LDPV(2, 1))
 hold on
 title("Pressure vs Vibration");
 xlabel("Pressure");
@@ -89,12 +73,14 @@ ylabel("Vibration");
 legend("Car Sponge", "Black Foam");
 
 
+
+
 figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 3), "red"); % Volume vs Temperature
+scatter(normalisedCS(:, 2),normalisedCS(:, 3), "red"); % Volume vs Temperature
 hold on
 scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 3), "blue");
 hold on
-quiver(0,0, VTeigenVectors(2), VTeigenVectors(1))
+quiver(0,0, LDVT(1, 1), LDVT(2, 1))
 hold on
 title("Vibration vs Temperature");
 xlabel("Vibration");
@@ -106,7 +92,7 @@ scatter(normalisedCS(1:10, 3),normalisedCS(1:10, 1), "red"); % Pressure vs Tempe
 hold on
 scatter(normalisedBF(1:10, 3),normalisedBF(1:10, 1), "blue");
 hold on
-quiver(0,0, PTeigenVectors(2), PTeigenVectors(1))
+quiver(0,0, LDPT(1, 1), LDPT(2, 1))
 hold on
 title("Pressure vs Temeprature");
 xlabel("Pressure");

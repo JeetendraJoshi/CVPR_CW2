@@ -1,44 +1,4 @@
-
-%NOT OUR SECTION 1 CODE DO NOT KEEP
-step = 25;
-num = 1000/step;
-pvt = zeros(3, 60);
-time = 50;
-
-
-data = dir('data/*.mat');
-for i = 1:length(data)
-    load(data(i).name);
-
-    pvt(1, i) = F0pdc(time);
-    pvt(2, i) = F0pac(2,time);
-    pvt(3, i) = F0tdc(time);
-end
-
-%pvt(:, :, 1) = [];
-
-a_m = pvt(:, 1:10);
-result.acrylic = a_m;
-
-bf_m = pvt(:, 11:20);
-result.black_foam = bf_m;
-
-cs_m = pvt(:, 21:30);
-result.car_sponge = cs_m;
-
-fs_m = pvt(:, 31:40);
-result.flour_sack = fs_m;
-
-ks_m = pvt(:, 41:50);
-result.kitchen_sponge = ks_m;
-
-sv_m = pvt(:, 51:60);
-result.steel_vase = sv_m;
-
-
-save('F0_PVT.mat', 'result')
-
-
+load("F0_PVT.mat")
 %Part 1 Section B
 
 %a)
@@ -49,7 +9,7 @@ save('F0_PVT.mat', 'result')
 % objects)
 % - Standardise (Subtract mean and divide by standard deviation)
 % - Find covariance of the 3x60 matrix
-concatenated_matrix = cat(2, result.acrylic, result.black_foam, result.car_sponge, result.flour_sack, result.kitchen_sponge, result.steel_vase);
+concatenated_matrix = PVT';
 
 matrix_mean = mean(concatenated_matrix, 2);
 matrix_st = std(concatenated_matrix.');

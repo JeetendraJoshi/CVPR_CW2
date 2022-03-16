@@ -1,4 +1,8 @@
 close all
+
+
+
+
 load("F0_PVT.mat")
 
 
@@ -8,26 +12,6 @@ normalisedBothClasses = normalize(bothClasses);
 
 normalisedBF = normalisedBothClasses(1:10, 1:3);
 normalisedCS = normalisedBothClasses(11:20, 1:3);
-
-
-
-figure;
-scatter(normalisedCS(1:10, 1),normalisedCS(1:10, 2), "red"); % Pressure vs Volume
-hold on
-scatter(normalisedBF(1:10, 1),normalisedBF(1:10, 2), "blue");
-
-figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 3), "red"); % Volume vs Temperature
-hold on
-scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 3), "blue");
-
-figure;
-scatter(normalisedCS(1:10, 1),normalisedCS(1:10, 3), "red"); % Pressure vs Temperature
-hold on
-scatter(normalisedBF(1:10, 1),normalisedBF(1:10, 3), "blue");
-
-
-close all
 
 blackFoamMean = mean(normalisedBF);
 carSpongeMean = mean(normalisedCS);
@@ -77,9 +61,9 @@ LDPT = PTeigenVectors(:, 1);
 
 
 figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 1), "red"); % Pressure vs Vibration
+scatter(normalisedCS(:, 2),normalisedCS(:, 1), "red"); % Pressure vs Vibration
 hold on
-scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 1), "blue");
+scatter(normalisedBF(:, 2),normalisedBF(:, 1), "blue");
 hold on
 quiver(0,0, LDPV(1, 1), LDPV(2, 1))
 hold on
@@ -89,10 +73,12 @@ ylabel("Vibration");
 legend("Car Sponge", "Black Foam");
 
 
+
+
 figure;
-scatter(normalisedCS(1:10, 2),normalisedCS(1:10, 3), "red"); % Volume vs Temperature
+scatter(normalisedCS(:, 2),normalisedCS(:, 3), "red"); % Volume vs Temperature
 hold on
-scatter(normalisedBF(1:10, 2),normalisedBF(1:10, 3), "blue");
+scatter(normalisedBF(:, 2),normalisedBF(:, 3), "blue");
 hold on
 quiver(0,0, LDVT(1, 1), LDVT(2, 1))
 hold on
@@ -102,9 +88,9 @@ ylabel("Temperature");
 legend("Car Sponge", "Black Foam");
 
 figure;
-scatter(normalisedCS(1:10, 3),normalisedCS(1:10, 1), "red"); % Pressure vs Temperature
+scatter(normalisedCS(:, 3),normalisedCS(:, 1), "red"); % Pressure vs Temperature
 hold on
-scatter(normalisedBF(1:10, 3),normalisedBF(1:10, 1), "blue");
+scatter(normalisedBF(:, 3),normalisedBF(:, 1), "blue");
 hold on
 quiver(0,0, LDPT(1, 1), LDPT(2, 1))
 hold on
@@ -112,6 +98,18 @@ title("Pressure vs Temeprature");
 xlabel("Pressure");
 ylabel("Temperature");
 legend("Car Sponge", "Black Foam");
+
+
+
+
+figure
+scatter(normalisedCS(:, 2), ones(10), "green")
+hold on
+scatter(normalisedBF(:, 2), ones(10), "red");
+
+
+
+
 
 
 %close all

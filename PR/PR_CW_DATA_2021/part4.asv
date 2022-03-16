@@ -1,0 +1,6 @@
+load("F0_PVT.mat")
+
+
+
+normalizedPVT = normalize(PVT);
+[idx, C] = kmeans(normalizedPVT(:, :), 6);
