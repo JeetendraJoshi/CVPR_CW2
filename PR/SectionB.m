@@ -64,6 +64,8 @@ matrix_covariance = cov(concatenated_matrix.');
 
 %b)
 %Replot the standardised data with principal components displayed.
+
+%Plotting standardised matrix
 x = concatenated_matrix(1, :);
 y = concatenated_matrix(2, :);
 z = concatenated_matrix(3, :);
@@ -81,7 +83,43 @@ hold off
 
 %c)
 %Reduce the data to 2-dimensions and replot.
-%two largest eigenvalues are column 2,3, choose those eigenvectors
 
+%two largest eigenvalues are column 2,3, choose those eigenvectors
+%multiply this feature vector matrix with the original data
+
+feature_vector = [matrix_eig_vects(:,2), matrix_eig_vects(:,3)]; 
+
+two_d_plot = concatenated_matrix.' * feature_vector;
+scatter(two_d_plot(:, 1), two_d_plot(:,2));
+
+hold on
+
+x = [matrix_eig_vects(2, 1), matrix_eig_vects(3, 1)];
+y = [matrix_eig_vects(2, 2), matrix_eig_vects(3, 2)];
+
+plot([0,0; x], [0,0; y]);
+
+hold off
+
+%d)
+%Show how the data is distributed across all PCs by plotting as separate 1D
+%number lines
+
+pc_one = [two_d_plot(: , 1)];
+pc_two = [two_d_plot(: , 2)];
+
+
+nexttile
+scatter(pc_one, 1, 'filled','r');
+nexttile
+scatter(pc_two, 2, 'filled','g');
+
+
+
+%Part 2 Section B
+
+%a)
+%Use PCA to determine the principal components of electrode data. Report on
+%the variances with a Scree plot
 
 
