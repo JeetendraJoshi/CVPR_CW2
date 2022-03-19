@@ -82,4 +82,55 @@ scatter(pc_two, 2, 'filled','g');
 %Use PCA to determine the principal components of electrode data. Report on
 %the variances with a Scree plot
 
+load("F0Electrodes.mat");
+
+normalisedElectrodes = normalize(ElectrodesData);
+
+covMat = cov(normalisedElectrodes);
+
+[covEigenVectorsFull, covEigenValuesFull] = eig(covMat);
+
+screePlotY = flip(diag(covEigenValuesFull));
+
+
+figure;
+scatter(1:19, screePlotY);
+
+
+[covEigenVectors, covEigenValues] = eigs(covMat, 3);
+
+projectionPrincipalComponents = normalisedElectrodes *covEigenVectors;
+
+acrylicPrincipalComponents = projectionPrincipalComponents(1:10, :);
+blackFoamPrincipalComponents = projectionPrincipalComponents(11:20, :);
+carSpongePrincipalComponents = projectionPrincipalComponents(21:30, :);
+flourSackPrincipalComponents = projectionPrincipalComponents(31:40, :);
+kitchenSpongePrincipalComponents = projectionPrincipalComponents(41:50, :);
+steelVasePrincipalComponents = projectionPrincipalComponents(51:60, :);
+
+
+figure;
+plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'o')
+hold on
+plot3(blackFoamPrincipalComponents(:,1),blackFoamPrincipalComponents(:,2),blackFoamPrincipalComponents(:,3), 'o')
+hold on
+plot3(carSpongePrincipalComponents(:,1),carSpongePrincipalComponents(:,2),carSpongePrincipalComponents(:,3),'o')
+hold on
+plot3(flourSackPrincipalComponents(:,1),flourSackPrincipalComponents(:,2),flourSackPrincipalComponents(:,3),'o')
+hold on
+plot3(kitchenSpongePrincipalComponents(:,1),kitchenSpongePrincipalComponents(:,2),kitchenSpongePrincipalComponents(:,3),'o')
+hold on
+plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelVasePrincipalComponents(:,3),'o')
+hold on
+
+save("PCAF0Electrodes.mat", "projectionPrincipalComponents");
+
+
+
+
+
+
+
+
+
 
