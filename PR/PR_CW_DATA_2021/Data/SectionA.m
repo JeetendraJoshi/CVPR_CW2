@@ -1,4 +1,4 @@
-
+clear all
 close all
 
 t = linspace(1, 1000, 1000);

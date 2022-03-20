@@ -1,3 +1,4 @@
+clear all
 close all
 load("F0_PVT.mat")
 
