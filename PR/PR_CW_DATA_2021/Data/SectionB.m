@@ -115,22 +115,22 @@ flourSackPrincipalComponents = projectionPrincipalComponents(31:40, :);
 kitchenSpongePrincipalComponents = projectionPrincipalComponents(41:50, :);
 steelVasePrincipalComponents = projectionPrincipalComponents(51:60, :);
 
-
+color = ['r', 'g', 'b', 'm', 'k', 'c'];
 figure;
-plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'*')
+plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'*',"Color", color(1))
 hold on
-plot3(blackFoamPrincipalComponents(:,1),blackFoamPrincipalComponents(:,2),blackFoamPrincipalComponents(:,3), '*')
+plot3(blackFoamPrincipalComponents(:,1),blackFoamPrincipalComponents(:,2),blackFoamPrincipalComponents(:,3), '*',"Color", color(2))
 hold on
-plot3(carSpongePrincipalComponents(:,1),carSpongePrincipalComponents(:,2),carSpongePrincipalComponents(:,3),'*')
+plot3(carSpongePrincipalComponents(:,1),carSpongePrincipalComponents(:,2),carSpongePrincipalComponents(:,3),'*', "Color", color(3))
 hold on
-plot3(flourSackPrincipalComponents(:,1),flourSackPrincipalComponents(:,2),flourSackPrincipalComponents(:,3),'*')
+plot3(flourSackPrincipalComponents(:,1),flourSackPrincipalComponents(:,2),flourSackPrincipalComponents(:,3),'*', "Color", color(4))
 hold on
-plot3(kitchenSpongePrincipalComponents(:,1),kitchenSpongePrincipalComponents(:,2),kitchenSpongePrincipalComponents(:,3),'*')
+plot3(kitchenSpongePrincipalComponents(:,1),kitchenSpongePrincipalComponents(:,2),kitchenSpongePrincipalComponents(:,3),'*',"Color", color(5))
 hold on
-plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelVasePrincipalComponents(:,3),'*')
+plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelVasePrincipalComponents(:,3),'*',"Color" ,color(6))
 hold on
 title("Principal Component Projection for Each Object")
-xlabel('Pressure'); ylabel('Vibration'); zlabel('Temperature');
+xlabel('PC1'); ylabel('PC2'); zlabel('PC3');
 legend('Acrylic','Black Foam','Car Sponge', 'Flour Sack', 'Kitchen Sponge','Steel Vase')
 save("PCAF0Electrodes.mat", "projectionPrincipalComponents");
 

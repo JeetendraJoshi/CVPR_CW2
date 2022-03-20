@@ -102,7 +102,7 @@ legend("Car Sponge", "Black Foam");
 
 screeBFPV = BF_PV* LDPV;
 screeCSPV = CS_PV * LDPV;
-screePlotPV = [screeCSPV; screeBFPV];
+screePlotPV = [screeBFPV; screeCSPV];
 yvalue = zeros(10,1);
 
 figure
@@ -112,7 +112,7 @@ hold on
 
 plot(screePlotPV(11:20), yvalue,"o", "Color",  "g")
 title("Pressure Vibration LD Projection")
-legend("Car Sponge", "Black Foam");
+legend("Black Foam", "Car Sponge")
 xlabel("LD")
 
 
@@ -121,20 +121,20 @@ xlabel("LD")
 figure
 screeBFPT = BF_PT* LDPT;
 screeCSPT = CS_PT * LDPT;
-screePlotPT = [screeCSPT; screeBFPT];
+screePlotPT = [screeBFPT; screeCSPT];
 
 
 plot(screePlotPT(1:10), yvalue,"o", "Color", "b")
 hold on
 plot(screePlotPT(11:20), yvalue,"o", "Color", "g")
 title("Pressure Temperature LD Projection")
-legend("Car Sponge", "Black Foam");
+legend("Black Foam", "Car Sponge")
 xlabel("LD")
 
 figure
 screeBFVT = BF_VT* LDVT;
 screeCSVT = CS_VT * LDVT;
-screePlotVT = [screeCSVT; screeBFVT];
+screePlotVT = [screeBFVT; screeCSVT];
 
 yvalue = zeros(10,1);
 plot(screePlotVT(1:10), yvalue,"o", "Color", "b")
@@ -142,7 +142,7 @@ hold on
 plot(screePlotVT(11:20), yvalue,"o", "Color",  "g")
 hold on
 title("Vibration Temperature LD Projection")
-legend("Car Sponge", "Black Foam");
+legend("Black Foam", "Car Sponge")
 xlabel("LD")
 
 
