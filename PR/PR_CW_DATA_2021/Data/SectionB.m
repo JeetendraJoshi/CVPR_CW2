@@ -1,3 +1,4 @@
+close all
 load("F0_PVT.mat")
 %Part 1 Section B
 
@@ -30,6 +31,7 @@ x = concatenated_matrix(1, :);
 y = concatenated_matrix(2, :);
 z = concatenated_matrix(3, :);
 
+figure;
 scatter3(x,y, z);
 hold on
 
@@ -50,6 +52,7 @@ hold off
 feature_vector = [matrix_eig_vects(:,2), matrix_eig_vects(:,3)]; 
 
 two_d_plot = concatenated_matrix.' * feature_vector;
+figure;
 scatter(two_d_plot(:, 1), two_d_plot(:,2));
 
 hold on
@@ -67,10 +70,11 @@ hold off
 
 pc_one = [two_d_plot(: , 1)];
 pc_two = [two_d_plot(: , 2)];
-
+figure;
 
 nexttile
 scatter(pc_one, 1, 'filled','r');
+hold on;
 nexttile
 scatter(pc_two, 2, 'filled','g');
 
@@ -94,7 +98,10 @@ screePlotY = flip(diag(covEigenValuesFull));
 
 
 figure;
-scatter(1:19, screePlotY);
+plot(1:19, screePlotY, '-o');
+title("Scree Plot for Electrode Data")
+xlabel("Electrodes")
+ylabel("Eigenvalues")
 
 
 [covEigenVectors, covEigenValues] = eigs(covMat, 3);
@@ -110,19 +117,21 @@ steelVasePrincipalComponents = projectionPrincipalComponents(51:60, :);
 
 
 figure;
-plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'o')
+plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'*')
 hold on
-plot3(blackFoamPrincipalComponents(:,1),blackFoamPrincipalComponents(:,2),blackFoamPrincipalComponents(:,3), 'o')
+plot3(blackFoamPrincipalComponents(:,1),blackFoamPrincipalComponents(:,2),blackFoamPrincipalComponents(:,3), '*')
 hold on
-plot3(carSpongePrincipalComponents(:,1),carSpongePrincipalComponents(:,2),carSpongePrincipalComponents(:,3),'o')
+plot3(carSpongePrincipalComponents(:,1),carSpongePrincipalComponents(:,2),carSpongePrincipalComponents(:,3),'*')
 hold on
-plot3(flourSackPrincipalComponents(:,1),flourSackPrincipalComponents(:,2),flourSackPrincipalComponents(:,3),'o')
+plot3(flourSackPrincipalComponents(:,1),flourSackPrincipalComponents(:,2),flourSackPrincipalComponents(:,3),'*')
 hold on
-plot3(kitchenSpongePrincipalComponents(:,1),kitchenSpongePrincipalComponents(:,2),kitchenSpongePrincipalComponents(:,3),'o')
+plot3(kitchenSpongePrincipalComponents(:,1),kitchenSpongePrincipalComponents(:,2),kitchenSpongePrincipalComponents(:,3),'*')
 hold on
-plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelVasePrincipalComponents(:,3),'o')
+plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelVasePrincipalComponents(:,3),'*')
 hold on
-
+title("Principal Component Projection for Each Object")
+xlabel('Pressure'); ylabel('Vibration'); zlabel('Temperature');
+legend('Acrylic','Black Foam','Car Sponge', 'Flour Sack', 'Kitchen Sponge','Steel Vase')
 save("PCAF0Electrodes.mat", "projectionPrincipalComponents");
 
 

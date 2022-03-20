@@ -2,7 +2,9 @@ close all
 load("F0_PVT.mat")
 
 normalizedPVT = normalize(PVT);
-[ids, CentralLocations] = kmeans(normalizedPVT(:, :), 6, "Distance", "cityblock");
+
+z = "correlation";
+[ids, CentralLocations] = kmeans(normalizedPVT(:, :), 6, "Distance", z);
 
 figure;
 
@@ -21,7 +23,7 @@ end
 plot3(CentralLocations(:,1),CentralLocations(:,2),CentralLocations(:,3),'o','Color','b','MarkerSize',10,'MarkerFaceColor','y'); hold on;
 legend('Cluster 1','Cluster 2','Cluster 3','Cluster 4','Cluster 5','Cluster 6','Centroids',...
        'Location','NW')
-title ('Cluster Assignments and Centroids')
+title (sprintf('Cluster Assignments and Centroids - %s', z))
 xlabel('Pressure'); ylabel('Vibration'); zlabel('Temperature');
 set(gca,'Fontsize',18)
 hold off
@@ -47,16 +49,18 @@ Testing = fullDataset(idx(round(P*m)+1:end),:) ;
 
 
 
-treebag = TreeBagger(100,Training(:,1:3),Training(:,4),'SampleWithReplacement', 'on', 'OOBPrediction', 'on');
+treebag = TreeBagger(300,Training(:,1:3),Training(:,4),'SampleWithReplacement', 'on', 'OOBPrediction', 'on');
 
 figure;
 err = oobError(treebag);
 plot(err);
+xlabel("Tree Number")
+ylabel("Out of Bag Error")
 
 
-n = 50;
+n = 60;
 
-betterBagging = TreeBagger(50,Training(:,1:3),Training(:,4),'SampleWithReplacement', 'on', 'OOBPrediction', 'on');
+betterBagging = TreeBagger(n,Training(:,1:3),Training(:,4),'SampleWithReplacement', 'on', 'OOBPrediction', 'on');
 
 r = randi([0 n-1], 1 , 2);
 
@@ -73,7 +77,7 @@ end
 %This is the confusion matrix
 C = confusionmat(Testing(:, 4), YFIT_d);
 
-subplot(2,1,2)
+figure;
 confusionchart(C)
 title("Confusion Matrix Chart")
 

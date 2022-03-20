@@ -1,3 +1,4 @@
+clear all
 close all
 
 
@@ -76,7 +77,7 @@ legend("Car Sponge", "Black Foam");
 
 
 figure;
-scatter(normalisedCS(:, 2),normalisedCS(:, 3), "red"); % Volume vs Temperature
+scatter(normalisedCS(:, 2),normalisedCS(:, 3), "red"); % Vibration vs Temperature
 hold on
 scatter(normalisedBF(:, 2),normalisedBF(:, 3), "blue");
 hold on
@@ -85,7 +86,7 @@ hold on
 title("Vibration vs Temperature");
 xlabel("Vibration");
 ylabel("Temperature");
-legend("Car Sponge", "Black Foam");
+legend( "Car Sponge", "Black Foam");
 
 figure;
 scatter(normalisedCS(:, 3),normalisedCS(:, 1), "red"); % Pressure vs Temperature
@@ -94,19 +95,55 @@ scatter(normalisedBF(:, 3),normalisedBF(:, 1), "blue");
 hold on
 quiver(0,0, LDPT(1, 1), LDPT(2, 1))
 hold on
-title("Pressure vs Temeprature");
+title("Pressure vs Temperature");
 xlabel("Pressure");
 ylabel("Temperature");
-legend("Car Sponge", "Black Foam");
+legend("Black Foam", "Black Foam");
+
+screeBFPV = BF_PV* LDPV;
+screeCSPV = CS_PV * LDPV;
+screePlotPV = [screeBFPV; screeCSPV];
+yvalue = zeros(10);
+
+figure
+
+scatter(screePlotPV(1:10), yvalue,"Color",  "blue")
+hold on
+
+scatter(screePlotPV(11:20), yvalue,"Color",  "red")
+title("Pressure Vibration LD Projection")
+legend("Black Foam", "Car Sponge")
+xlabel("LD")
 
 
 
 
 figure
-scatter(normalisedCS(:, 2), ones(10), "green")
-hold on
-scatter(normalisedBF(:, 2), ones(10), "red");
+screeBFPT = BF_PT* LDPT;
+screeCSPT = CS_PT * LDPT;
+screePlotPT = [screeBFPT; screeCSPT];
+yvalue = zeros(10);
 
+scatter(screePlotPT(1:10), yvalue,"Color", "blue")
+hold on
+scatter(screePlotPT(11:20), yvalue,"Color", "red")
+title("Pressure Temperature LD Projection")
+legend("Black Foam", "Car Sponge")
+xlabel("LD")
+
+figure
+screeBFVT = BF_VT* LDVT;
+screeCSVT = CS_VT * LDVT;
+screePlotVT = [screeBFVT; screeCSVT];
+
+yvalue = zeros(10);
+scatter(screePlotVT(1:10), yvalue,"Color", "blue")
+hold on
+scatter(screePlotVT(11:20), yvalue,"Color",  "red")
+hold on
+title("Vibration Temperature LD Projection")
+legend("Black Foam", "Car Sponge")
+xlabel("LD")
 
 
 
