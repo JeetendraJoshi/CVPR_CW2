@@ -1,8 +1,16 @@
 clear all
 close all
 
+
+%Use the plot command to view the time series sensor data for the variables Pressure, Vibration
+%and Temperature (PVT) and the Electrodes. Do this for several objects and trials and then
+%choose a single time step that looks like it will allow differentiation between the data for
+%different objects. Explain why you chose that value. Include an example of your data
+%visualisation for one or two object trials in your report. 
 t = linspace(1, 1000, 1000);
 
+%Objects Picked: Black Foam, Steel Vase and Car Sponge
+%Trials Picked: Trials 1, 3 and 9
 
 
 
@@ -106,8 +114,15 @@ subplot(4,3,12);plot(t, F0tdc);title("Trial 9 - Finger 0 Core Temperature"); set
 
 sgtitle('\fontsize{22} Car Sponge');
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PART 2
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%For one finger (F0 or F1), sample the Pressure, Vibration, Temperature time series data into
+%scaler values measured at the time instance (of your selected time step) for each object / trial.
+%Save the data structures together as a .mat file called F0_PVT.mat or F1_PVT.mat. Repeat for
+%the Electrodes data, saving that as another .mat file. Note that all subsequent actions in this
+%coursework will be on the data sets you just created (and therefore only on one of the robot%s
+%fingers).
 
 t = 32;
 
@@ -142,24 +157,31 @@ end
 save('F0Electrodes.mat',"ElectrodesData");
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PART
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%Create a 3D scatter plot of the complete contents of the PVT mat file, with the axis as Pressure,
+%Vibration and Temperature, with different colours used for different objects. Use the same
+%colours for the objects throughout this work.
 
+% Loads in the Data
 load("F0_PVT.mat")
 
-%X axis will be pressure, y axis will be vibration and z axis will be
-%temperature
+%X Axis is Pressure, Y axis is Vibration and Z Axis is Temperature
 sampledDataPressure = squeeze(PVT(:, 1, :)); 
 sampledDataVibration = squeeze(PVT(:, 2, :)); 
 sampledDataTemperature = squeeze(PVT(:, 3, :));
 
-
+% Ensures data can be plotted correctly for the 60 trials
 p = reshape(sampledDataPressure', [1, 60]);
 v = reshape(sampledDataVibration', [1, 60]);
 t = reshape(sampledDataTemperature', [1, 60]);
 
 colors = ['r', 'g', 'b', 'm', 'k', 'c'];
+% Red - Acrylic
+% Green - Black Foam
+% Blue - Car Sponge
+% Magenta - Flour Sack
+% Black - Kitchen Sponge
+% Cyan - Steel Vase
 n=0;
 
 figure;

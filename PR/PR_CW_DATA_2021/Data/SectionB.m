@@ -202,26 +202,39 @@ hold off
 
 load("F0Electrodes.mat");
 
+% Electrode Data is normalized across the 19 electrodes
 normalisedElectrodes = normalize(ElectrodesData);
 
+% Covariance Matrix for the Electrode Data
 covMat = cov(normalisedElectrodes);
 
+% 19 x 19 Eigenvector produced
 [covEigenVectorsFull, covEigenValuesFull] = eig(covMat);
 
+% The Eigenvalues are extracted from the diagonal and flipped to make them
+% descending order
 screePlotY = flip(diag(covEigenValuesFull));
 
-
+%Scree Plot produced from eigen values
 figure;
 plot(1:19, screePlotY, '-o');
 title("Scree Plot for Electrode Data")
 xlabel("Electrodes")
 ylabel("Eigenvalues")
 
-
+%Extract top 3 eigenvectors - Could be optimised by extracting from
+%preliminary matrix
 [covEigenVectors, covEigenValues] = eigs(covMat, 3);
 
+%Project the data on to the 3 Principal Components
 projectionPrincipalComponents = normalisedElectrodes *covEigenVectors;
 
+
+
+%Visualize the electrode data using the three principal components with largest
+%variance. 
+
+%Plot the data accordingly per object and ensures colours are consistent
 acrylicPrincipalComponents = projectionPrincipalComponents(1:10, :);
 blackFoamPrincipalComponents = projectionPrincipalComponents(11:20, :);
 carSpongePrincipalComponents = projectionPrincipalComponents(21:30, :);
@@ -229,6 +242,7 @@ flourSackPrincipalComponents = projectionPrincipalComponents(31:40, :);
 kitchenSpongePrincipalComponents = projectionPrincipalComponents(41:50, :);
 steelVasePrincipalComponents = projectionPrincipalComponents(51:60, :);
 
+color = ['r', 'g', 'b', 'm', 'k', 'c'];
 figure;
 plot3(acrylicPrincipalComponents(:,1),acrylicPrincipalComponents(:,2),acrylicPrincipalComponents(:,3),'*',"Color", color(1))
 hold on
@@ -245,7 +259,6 @@ hold on
 title("Principal Component Projection for Each Object")
 xlabel('PC1'); ylabel('PC2'); zlabel('PC3');
 legend('Acrylic','Black Foam','Car Sponge', 'Flour Sack', 'Kitchen Sponge','Steel Vase')
-grid on
 save("PCAF0Electrodes.mat", "projectionPrincipalComponents");
 
 
