@@ -66,7 +66,7 @@ plot3([0; x(2)], [0; y(2)], [0; z(2)],"Color", '#7E2F8E');
 %PC1
 plot3([0; x(3)], [0; y(3)], [0; z(3)],"Color", '#77AC30');
 
-title("3-D Plot of Standaradised Data");
+title("3D Plot of Standaradised Data");
 xlabel("x");
 ylabel("y");
 zlabel("z");
@@ -117,7 +117,7 @@ y = [matrix_eig_vects(2, 2), matrix_eig_vects(3, 2)];
 plot([0; x(1)], [0; y(1)],"Color", '#7E2F8E');
 %PC1
 plot([0; x(2)], [0; y(2)],"Color", '#77AC30');
-title("2-D Projection onto Principle Components");
+title("2D Projection onto Principle Components");
 xlabel("PC1");
 ylabel("PC2");
 legend('Acrylic','Black Foam','Car Sponge', 'Flour Sack', 'Kitchen Sponge','Steel Vase', 'PC2', 'PC1');
@@ -171,7 +171,6 @@ hold on
 plot(kitchenSpongePoints1d(:, 1), 1,'*',"Color", color(5));
 hold on
 plot(steelVasePoints1d(:, 1), 1,'*',"Color", color(6));
-title("1-D Projection onto Principle Component 1");
 grid on
 
 nexttile
@@ -187,7 +186,7 @@ hold on
 plot(kitchenSpongePoints1d_pc2(:, 1), 1,'*',"Color", color(5));
 hold on
 plot(steelVasePoints1d_pc2(:, 1), 1,'*',"Color", color(6));
-title("1-D Projection onto Principle Component 2");
+title("PC2");
 set(gca,'YTickLabel',{' '})
 grid on
 
@@ -259,7 +258,6 @@ plot3(steelVasePrincipalComponents(:,1),steelVasePrincipalComponents(:,2),steelV
 hold on
 title("Principal Component Projection for Each Object")
 xlabel('PC1'); ylabel('PC2'); zlabel('PC3');
-grid on
 legend('Acrylic','Black Foam','Car Sponge', 'Flour Sack', 'Kitchen Sponge','Steel Vase')
 save("PCAF0Electrodes.mat", "projectionPrincipalComponents");
 
