@@ -12,6 +12,32 @@ normalizedPVT = normalize(PVT);
 %Call the K-Means Clustering algorithm on the data using distance z
 %Change the distance metric, repeat the clustering and comment on the change in the
 %outcome.
+z = "sqeuclidean";
+[ids, CentralLocations] = kmeans(normalizedPVT(:, :), 6, "Distance", z);
+figure;
+
+%Plotting of Data Points
+colors = ['r', 'g', 'b', 'm', 'k', 'c'];
+
+% 
+for i = 1:6
+  color = colors(i);
+  scatter3(normalizedPVT(ids==i,1),normalizedPVT(ids==i,2),normalizedPVT(ids==i,3),30,'filled',color); 
+  grid on; hold on; 
+  
+end
+
+
+%Plotting of Clusters
+plot3(CentralLocations(:,1),CentralLocations(:,2),CentralLocations(:,3),'o','Color','b','MarkerSize',10,'MarkerFaceColor','y'); hold on;
+legend('Cluster 1','Cluster 2','Cluster 3','Cluster 4','Cluster 5','Cluster 6','Centroids',...
+       'Location','NW')
+title (sprintf('Cluster Assignments and Centroids - %s', z))
+xlabel('Pressure'); ylabel('Vibration'); zlabel('Temperature');
+set(gca,'Fontsize',18)
+hold off
+
+
 z = "correlation";
 [ids, CentralLocations] = kmeans(normalizedPVT(:, :), 6, "Distance", z);
 
@@ -77,12 +103,11 @@ n = 60;
 
 betterBagging = TreeBagger(n,Training(:,1:3),Training(:,4),'SampleWithReplacement', 'on', 'OOBPrediction', 'on');
 
-r = randi([0 n-1], 1 , 2);
 
 %Visualise two of your generated decision trees.
 %Visualise 2 random trees from tree bagger
-view(betterBagging.Trees{r(1)}, 'Mode','graph')
-view(betterBagging.Trees{r(2)}, 'Mode','graph')
+view(betterBagging.Trees{1}, 'Mode','graph')
+view(betterBagging.Trees{10}, 'Mode','graph')
 
 %Run the trained model with the test data. Display a confusion matrix (where the
 %object type is the class) and comment on the overall accuracy.

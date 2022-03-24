@@ -172,7 +172,8 @@ plot(kitchenSpongePoints1d(:, 1), 1,'*',"Color", color(5));
 hold on
 plot(steelVasePoints1d(:, 1), 1,'*',"Color", color(6));
 grid on
-
+title("1-D Projection onto Principal Component 1");
+set(gca,'YTickLabel',{' '})
 nexttile
 hold on;
 plot(acrylicPoints1d_pc2(:, 1), 1,'*',"Color", color(1));
@@ -186,7 +187,7 @@ hold on
 plot(kitchenSpongePoints1d_pc2(:, 1), 1,'*',"Color", color(5));
 hold on
 plot(steelVasePoints1d_pc2(:, 1), 1,'*',"Color", color(6));
-title("PC2");
+title("1-D Projection onto Principal Component 2");
 set(gca,'YTickLabel',{' '})
 grid on
 
